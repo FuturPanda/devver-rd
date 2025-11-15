@@ -1,0 +1,22 @@
+{
+  "name": "@devver/cli",
+  "version": "0.1.0",
+  "description": "Ultra-fast deployment CLI for testing environments",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "devver": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "effect": "^3.19.3",
+    "@devver/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  }
+}

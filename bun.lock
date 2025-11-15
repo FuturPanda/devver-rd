@@ -34,11 +34,18 @@
       },
     },
     "packages/server": {
-      "name": "server",
+      "name": "@devver/server",
+      "version": "0.1.0",
+      "dependencies": {
+        "@devver/shared": "workspace:*",
+        "@effect/platform": "^0.93.2",
+        "@effect/platform-bun": "^0.83.0",
+        "@effect/platform-node": "^0.100.0",
+        "@effect/schema": "^0.75.4",
+        "effect": "^3.19.3",
+      },
       "devDependencies": {
         "@types/bun": "latest",
-      },
-      "peerDependencies": {
         "typescript": "^5",
       },
     },
@@ -56,6 +63,8 @@
   },
   "packages": {
     "@devver/cli": ["@devver/cli@workspace:packages/cli"],
+
+    "@devver/server": ["@devver/server@workspace:packages/server"],
 
     "@devver/shared": ["@devver/shared@workspace:packages/shared"],
 
@@ -176,8 +185,6 @@
     "picomatch": ["picomatch@2.3.1", "", {}, "sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA=="],
 
     "pure-rand": ["pure-rand@6.1.0", "", {}, "sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA=="],
-
-    "server": ["server@workspace:packages/server"],
 
     "to-regex-range": ["to-regex-range@5.0.1", "", { "dependencies": { "is-number": "^7.0.0" } }, "sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ=="],
 

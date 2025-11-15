@@ -1,12 +1,24 @@
 {
-  "name": "server",
-  "module": "index.ts",
+  "name": "@devver/server",
+  "version": "0.1.0",
+  "description": "Devver deployment manager server",
+  "module": "src/index.ts",
   "type": "module",
   "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
+  "scripts": {
+    "dev": "bun --hot src/index.ts",
+    "start": "bun src/index.ts"
   },
-  "peerDependencies": {
+  "dependencies": {
+    "@effect/platform": "^0.93.2",
+    "@effect/platform-bun": "^0.83.0",
+    "@effect/platform-node": "^0.100.0",
+    "@effect/schema": "^0.75.4",
+    "effect": "^3.19.3",
+    "@devver/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
     "typescript": "^5"
   }
 }

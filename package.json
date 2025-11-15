@@ -4,6 +4,15 @@
   "type": "module",
   "private": true,
   "workspaces": ["packages/*"],
+  "scripts": {
+    "dvr": "bun run packages/cli/src/index.ts",
+    "dvr:init": "bun run packages/cli/src/index.ts init",
+    "dvr:setup": "bun run packages/cli/src/index.ts setup",
+    "dvr:deploy": "bun run packages/cli/src/index.ts deploy",
+    "dvr:status": "bun run packages/cli/src/index.ts status",
+    "server": "bun run packages/server/src/index.ts",
+    "server:dev": "bun --hot packages/server/src/index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

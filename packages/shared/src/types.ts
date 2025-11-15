@@ -7,6 +7,7 @@ export type Runtime = typeof Runtime.Type
 // Deployment configuration
 export const DeploymentConfig = Schema.Struct({
   project: Schema.String,
+  repository: Schema.optional(Schema.String), // Git repository URL
   container: Schema.Struct({
     host: Schema.String,
     port: Schema.Number,

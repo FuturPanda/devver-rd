@@ -1,24 +1,25 @@
 #!/usr/bin/env bun
 
+import { BunCommandExecutor, BunFileSystem, BunRuntime } from "@effect/platform-bun"
 import { Effect, Layer } from "effect"
-import { BunRuntime, BunCommandExecutor, BunFileSystem } from "@effect/platform-bun"
-import { initCommand } from "./commands/init"
 import { deployCommand } from "./commands/deploy"
+import { initCommand } from "./commands/init"
+import { setupCommand } from "./commands/setup"
 import { statusCommand } from "./commands/status"
-import { Git, GitLive } from "./services/Git"
-import { Config, ConfigLive } from "./services/Config"
-import { FileHash, FileHashLive } from "./services/FileHash"
+import { ConfigLive } from "./services/Config"
+import { FileHashLive } from "./services/FileHash"
+import { GitLive } from "./services/Git"
+import { HttpLive } from "./services/Http"
 
-// Create the service layer with all dependencies
 const ServicesLayer = Layer.mergeAll(
   GitLive,
   ConfigLive,
   FileHashLive,
+  HttpLive,
   BunCommandExecutor.layer,
   BunFileSystem.layer
 )
 
-// Main CLI program
 const program = Effect.gen(function* () {
   const args = process.argv.slice(2)
   const command = args[0]
@@ -26,6 +27,10 @@ const program = Effect.gen(function* () {
   switch (command) {
     case "init":
       yield* initCommand
+      break
+
+    case "setup":
+      yield* setupCommand
       break
 
     case "deploy": {
@@ -49,12 +54,14 @@ const program = Effect.gen(function* () {
       console.log("")
       console.log("Commands:")
       console.log("  init           Initialize Devver configuration")
+      console.log("  setup          Setup project on container (clone repo)")
       console.log("  deploy         Deploy the current branch")
       console.log("  deploy --branch=<name>  Deploy a specific branch")
       console.log("  status         Show deployment status")
       console.log("")
       console.log("Examples:")
       console.log("  devver init")
+      console.log("  devver setup")
       console.log("  devver deploy")
       console.log("  devver deploy --branch=feature-x")
       console.log("  devver status")
@@ -72,3 +79,4 @@ program.pipe(
   Effect.provide(ServicesLayer),
   BunRuntime.runMain
 )
+// Test change

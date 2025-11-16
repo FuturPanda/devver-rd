@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { BunCommandExecutor, BunFileSystem, BunRuntime } from "@effect/platform-bun"
+import { BunRuntime } from "@effect/platform-bun"
 import { Effect, Layer } from "effect"
 import { deployCommand } from "./commands/deploy"
 import { initCommand } from "./commands/init"
@@ -15,9 +15,7 @@ const ServicesLayer = Layer.mergeAll(
   GitLive,
   ConfigLive,
   FileHashLive,
-  HttpLive,
-  BunCommandExecutor.layer,
-  BunFileSystem.layer
+  HttpLive
 )
 
 const program = Effect.gen(function* () {

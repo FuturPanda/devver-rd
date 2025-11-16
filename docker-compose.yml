@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  devver-server:
+    build:
+      context: .
+      dockerfile: packages/server/Dockerfile
+    ports:
+      - "3333:3333"  # API server
+      - "80:80"       # Nginx reverse proxy
+    volumes:
+      # Persist deployed apps
+      - devver-apps:/tmp/devver-apps
+      # Optional: mount SSH keys if needed for private repos
+      - ~/.ssh:/root/.ssh:ro
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    container_name: devver-server
+
+volumes:
+  devver-apps:
+    driver: local

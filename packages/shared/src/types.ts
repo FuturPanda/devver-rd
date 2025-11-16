@@ -14,6 +14,7 @@ export const DeploymentConfig = Schema.Struct({
     user: Schema.String,
   }),
   runtime: Runtime,
+  buildCommand: Schema.optional(Schema.String), // e.g., "npm run build"
   startCommand: Schema.String,
   healthCheck: Schema.optional(
     Schema.Struct({
@@ -58,3 +59,54 @@ export const DeploymentStatus = Schema.Struct({
   lastDeployed: Schema.String,
 })
 export type DeploymentStatus = typeof DeploymentStatus.Type
+
+// Branch info for tracking on server
+export const BranchInfo = Schema.Struct({
+  project: Schema.String,
+  branch: Schema.String,
+  commitHash: Schema.String,
+  createdAt: Schema.String,
+  lastDeployedAt: Schema.String,
+})
+export type BranchInfo = typeof BranchInfo.Type
+
+// Deploy request
+export const DeployRequest = Schema.Struct({
+  project: Schema.String,
+  branch: Schema.String,
+  commitHash: Schema.String,
+  baseCommitHash: Schema.optional(Schema.String), // Common ancestor for diff
+  files: Schema.Array(Schema.Struct({
+    path: Schema.String,
+    hash: Schema.String,
+    content: Schema.String, // base64 encoded
+  })),
+  deletedFiles: Schema.Array(Schema.String),
+})
+export type DeployRequest = typeof DeployRequest.Type
+
+// Server branch list response
+export const BranchListResponse = Schema.Struct({
+  branches: Schema.Array(Schema.Struct({
+    branch: Schema.String,
+    commitHash: Schema.String,
+    lastDeployedAt: Schema.String,
+  })),
+})
+export type BranchListResponse = typeof BranchListResponse.Type
+
+// Server deployments list response
+export const DeploymentsListResponse = Schema.Struct({
+  deployments: Schema.Array(Schema.Struct({
+    project: Schema.String,
+    branch: Schema.String,
+    commitHash: Schema.String,
+    commitShort: Schema.String,
+    url: Schema.String,
+    port: Schema.Number,
+    status: Schema.Literal("online", "stopped", "error"),
+    lastDeployedAt: Schema.String,
+    pid: Schema.optional(Schema.Number),
+  })),
+})
+export type DeploymentsListResponse = typeof DeploymentsListResponse.Type

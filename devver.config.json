@@ -2,7 +2,7 @@
   "project": "my-app",
   "container": {
     "host": "localhost",
-    "port": 22,
+    "port": 3333,
     "user": "deploy"
   },
   "runtime": "bun",
@@ -19,5 +19,5 @@
   "env": {
     "NODE_ENV": "development"
   },
-  "repository": "https://github.com/example/rd-test.git"
+  "repository": "https://github.com/FuturPanda/devver-rd.git"
 }

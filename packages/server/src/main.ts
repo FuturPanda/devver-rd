@@ -28,3 +28,5 @@ const ServerLive = HttpApiBuilder.serve().pipe(
 )
 
 Layer.launch(ServerLive).pipe(NodeRuntime.runMain)
+
+const _ = Effect.log("Hello world!")

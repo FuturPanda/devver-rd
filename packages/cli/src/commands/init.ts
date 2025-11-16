@@ -2,6 +2,7 @@ import { Effect, Console, pipe } from "effect"
 import { Config, ConfigError } from "../services/Config"
 import { Git } from "../services/Git"
 import { Http } from "../services/Http"
+import type { DeploymentConfig } from "@devver/shared"
 
 export const initCommand = Effect.gen(function* () {
   const config = yield* Config
@@ -62,14 +63,18 @@ export const initCommand = Effect.gen(function* () {
   // Create base config
   yield* config.init
   
-  // Update config with repository URL
+  // Update config with project name and repository URL
   const cfg = yield* config.load
-  yield* config.save({ ...cfg, repository: remoteUrl })
+  yield* config.save({ 
+    ...cfg, 
+    project: projectName as string,
+    repository: remoteUrl as string
+  } as DeploymentConfig)
 
   yield* Console.log("✅ Created devver.config.json")
   yield* Console.log("")
 
-  // Reload config with repository
+  // Reload config with repository and project name
   const finalConfig = yield* config.load
 
   // Now setup the project on the server via HTTP

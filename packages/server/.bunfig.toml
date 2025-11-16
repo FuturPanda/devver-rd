@@ -1,0 +1,7 @@
+# Disable native module loading for msgpackr to avoid ARM64 compatibility issues
+[install]
+optional = false
+
+[loader]
+# Disable native addon loading
+".node" = "file"
